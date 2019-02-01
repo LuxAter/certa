@@ -10,8 +10,8 @@
   "include_dir": "include",
   "include": [],
   "build": "build",
-  "linalg": {
-    "path": "linalg",
+  "certa": {
+    "path": "certa",
     "files": "src/main.cpp",
     "group": "main",
     "type": "exe"

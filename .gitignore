@@ -6,7 +6,7 @@ build/*
 docs/html/*
 docs/latex/*
 docs/xml/*
-linalg
+certa
 unit-test
 .gdb_history
 coverage/*

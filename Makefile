@@ -4,7 +4,7 @@ ifndef .VERBOSE
     .SILENT:
 endif
 ROOT=$(shell pwd)
-ROOT=/home/arden/Programming/cpp/linalg
+ROOT=/home/arden/Programming/cpp/certa
 CXX=clang++
 CC=clang
 CCIGNORE=
@@ -60,40 +60,40 @@ define help
 printf "%b%*s%b: %s\n" "$(HELP_COLOR)" 20 "$(1)" "\033[0m" "$(2)"
 endef
 
-all: build-linalg
-clean: clean-linalg
-install: install-linalg
-uninstall: uninstall-linalg
+all: build-certa
+clean: clean-certa
+install: install-certa
+uninstall: uninstall-certa
 
-# LINALG {{{
+# CERTA {{{
 
-LINALG=linalg
-LINALG_FILES=src/main.cpp
-LINALG_OBJS=$(LINALG_FILES:%=$(ROOT)/$(BUILD)/%.o)
--include $(LINALG_OBJS:.o=.d)
+CERTA=certa
+CERTA_FILES=src/main.cpp
+CERTA_OBJS=$(CERTA_FILES:%=$(ROOT)/$(BUILD)/%.o)
+-include $(CERTA_OBJS:.o=.d)
 
-build-linalg:  pre-linalg $(LINALG)
-	$(call complete_target,$(shell basename $(LINALG)))
+build-certa:  pre-certa $(CERTA)
+	$(call complete_target,$(shell basename $(CERTA)))
 
-clean-linalg:
-	$(call clean_target,$(shell basename $(LINALG)))
-	if [ -e "$(LINALG)" ]; then rm $(LINALG); fi
+clean-certa:
+	$(call clean_target,$(shell basename $(CERTA)))
+	if [ -e "$(CERTA)" ]; then rm $(CERTA); fi
 
-pre-linalg:
-	$(call scan_target,$(shell basename $(LINALG)))
+pre-certa:
+	$(call scan_target,$(shell basename $(CERTA)))
 
-$(LINALG): $(LINALG_OBJS) FORCE
-	$(call print_link_exe,$(shell basename $(LINALG)))
-	$(CXX) $(LINALG_OBJS)  $(LINK) $(COMMON_INCLUDE) -o $(LINALG)
+$(CERTA): $(CERTA_OBJS) FORCE
+	$(call print_link_exe,$(shell basename $(CERTA)))
+	$(CXX) $(CERTA_OBJS)  $(LINK) $(COMMON_INCLUDE) -o $(CERTA)
 
-install-linalg: build-linalg
-	$(call install_target,$(shell basename $(LINALG)))
+install-certa: build-certa
+	$(call install_target,$(shell basename $(CERTA)))
 	mkdir -p $(INSTALL_PATH)/bin/
-	cp $(LINALG) $(INSTALL_PATH)/bin
+	cp $(CERTA) $(INSTALL_PATH)/bin
 
-uninstall-linalg:
-	$(call uninstall_target,$(shell basename $(LINALG)))
-	if [ -e "$(INSTALL_PATH)/bin/$(shell basename $(LINALG))" ]; then rm $(INSTALL_PATH)/bin/$(shell basename $(LINALG)); fi
+uninstall-certa:
+	$(call uninstall_target,$(shell basename $(CERTA)))
+	if [ -e "$(INSTALL_PATH)/bin/$(shell basename $(CERTA))" ]; then rm $(INSTALL_PATH)/bin/$(shell basename $(CERTA)); fi
 
 # }}}
 # GTEST {{{
