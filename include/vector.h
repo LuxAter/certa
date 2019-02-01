@@ -1,9 +1,9 @@
-#ifndef LINALG_HPP_
-#define LINALG_HPP_
-
+#ifndef CERTA_VECTOR_H_
+#define CERTA_VECTOR_H_
 #include <cstdlib>
+#include <sstream>
 
-namespace math {
+namespace certa {
 template <typename _T>
 class vec {
  public:
@@ -31,6 +31,16 @@ class vec {
 
   inline _T* data() noexcept { return data_; }
   inline const _T* data() const noexcept { return data_; }
+
+  inline std::string str() const {
+    std::stringstream ss;
+    ss << '<';
+    for (unsigned long i = 0; i < size_ - 1; ++i) {
+      ss << data_[i] << ',';
+    }
+    ss << data_[size_ - 1] << '>';
+    return ss.str();
+  }
 
   inline unsigned long size() const noexcept { return size_; }
 
@@ -66,6 +76,6 @@ class vec {
   unsigned long size_;
   _T* data_;
 };
-}  // namespace math
+}  // namespace certa
 
-#endif  // LINALG_HPP_
+#endif  // CERTA_VECTOR_H_

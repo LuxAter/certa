@@ -120,6 +120,14 @@ $(BUILD)/libgtest.a: gtest/googletest/src/gtest-all.cc gtest/googletest/src/gtes
 # }}}
 # TESTS {{{
 
+ifdef CI
+  GCOV_LINK = --coverage
+  GCOV_FLAG = -fprofile-arcs -ftest-coverage -fno-inline -fnoinline-small-functions -fno-default-inline
+else
+  GCOV_LINK = 
+  GCOV_FLAG = 
+endif
+
 TESTS=unit-test
 TESTS_FILES=$(shell find "tests/" -name "*.cpp")
 TESTS_OBJS=$(TESTS_FILES:%=$(ROOT)/$(BUILD)/%.o)
@@ -137,7 +145,7 @@ pre-tests:
 
 $(TESTS): $(TESTS_OBJS) FORCE
 	$(call print_link_exe,$(shell basename $(TESTS)))
-	$(CXX) $(TESTS_OBJS)  $(BUILD)/libgtest.a -lpthread $(LINK) $(COMMON_INCLUDE) -o $(TESTS)
+	$(CXX) $(TESTS_OBJS)  $(BUILD)/libgtest.a -lpthread $(LINK) $(GCOV_LINK) $(COMMON_INCLUDE) -o $(TESTS)
 
 install-tests: build-tests
 	$(call install_target,$(shell basename $(TESTS)))
@@ -147,6 +155,11 @@ install-tests: build-tests
 uninstall-tests:
 	$(call uninstall_target,$(shell basename $(TESTS)))
 	if [ -e "$(INSTALL_PATH)/bin/$(shell basename $(TESTS))" ]; then rm $(INSTALL_PATH)/bin/$(shell basename $(TESTS)); fi
+
+$(ROOT)/$(BUILD)/tests/%.cpp.o: tests/%.cpp
+	mkdir -p $(@D)
+	$(call print_build_cpp,$@)
+	$(CXX) $(CXXFLAGS) $(GCOV_FLAG) -I$(ROOT)/gtest/googletest/include -MMD -c $(COMMON_INCLUDE) $< -o $@
 
 # }}}
 # TEST {{{

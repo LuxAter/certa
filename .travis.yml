@@ -15,8 +15,7 @@ before_install:
   - sudo apt-get update -qq
 
 script:
-  - make
-  - ./unit-test
+  - make test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "CodeCov Error"
