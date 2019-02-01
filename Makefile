@@ -4,7 +4,6 @@ ifndef .VERBOSE
     .SILENT:
 endif
 ROOT=$(shell pwd)
-ROOT=/home/arden/Programming/cpp/certa
 CXX=clang++
 CC=clang
 CCIGNORE=
