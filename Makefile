@@ -122,10 +122,10 @@ $(BUILD)/libgtest.a: gtest/googletest/src/gtest-all.cc gtest/googletest/src/gtes
 
 ifdef CI
   GCOV_LINK = --coverage
-  GCOV_FLAG = -fprofile-arcs -ftest-coverage -fno-inline -fnoinline-small-functions -fno-default-inline
+  GCOV_FLAG = -fprofile-arcs -ftest-coverage -fno-inline
 else
-  GCOV_LINK = 
-  GCOV_FLAG = 
+  GCOV_LINK =
+  GCOV_FLAG =
 endif
 
 TESTS=unit-test
