@@ -1,0 +1,35 @@
+{
+  "CXX": "clang++",
+  "CC": "clang",
+  "CCIGNORE": "",
+  "CXXIGNORE": "",
+  "CCFLAGS": ["-fPIC -Wall -Wpedantic --static"],
+  "CXXFLAGS": ["-std=c++17", "-fPIC", "-Wall", "-Wpedantic", "--static"],
+  "LINK": "",
+  "source": "src",
+  "include_dir": "include",
+  "include": [],
+  "build": "build",
+  "linalg": {
+    "path": "linalg",
+    "files": "src/main.cpp",
+    "group": "main",
+    "type": "exe"
+  },
+  "gtest": {
+    "path": "$(BUILD)",
+    "source": "gtest/googletest",
+    "type": "gtest"
+  },
+  "tests": {
+    "path": "unit-test",
+    "files": "tests/*.cpp",
+    "dep": ["gtest"],
+    "type": "exe"
+  },
+  "test": {
+    "dep": ["tests"],
+    "cmd": "./unit-test --gtest_color=yes",
+    "type": "cmd"
+  }
+}
